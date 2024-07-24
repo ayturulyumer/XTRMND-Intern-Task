@@ -11,18 +11,15 @@ export default function UserList() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="bg-blue-800 text-left text-xs font-semibold uppercase tracking-widest text-white">
+              <tr className="bg-gray-800 text-left text-xs font-semibold uppercase tracking-widest text-white">
                 <th className="px-5 py-3">ID</th>
-                <th className="px-5 py-3">Full Name</th>
+                <th className="px-5 py-3">Name</th>
                 <th className="px-5 py-3">Username</th>
-                <th className="px-5 py-3">Email</th>
+                <th className="px-5 py-3">Company</th>
               </tr>
             </thead>
             <tbody className="text-gray-500">
-          <SingleUser/>
-          <SingleUser/>
-          <SingleUser/>
-          <SingleUser/>
+              <SingleUser />
             </tbody>
           </table>
         </div>
