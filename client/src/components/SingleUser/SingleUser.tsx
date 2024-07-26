@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import PhoneIcon from "../../assets/phone.svg";
 import WebsiteIcon from "../../assets/website.svg";
 import CityIcon from "../../assets/city.svg";
 import EmailIcon from "../../assets/email.svg";
+import ArrowUpIcon from "../../assets/up-arrow.svg";
+import ArrowDownIcon from "../../assets/down-arrow.svg";
 
 import { User } from "../../types/types";
 
@@ -14,14 +16,24 @@ interface SingleUserProps {
 export default function SingleUser({ user }: SingleUserProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  console.log(user);
-
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
   };
 
   const userMainDetails = [
-    { label: "ID", value: user.id },
+    {
+      label: "ID",
+      value: (
+        <div className="flex items-center">
+          {user.id}
+          <img
+            src={isOpen ? ArrowUpIcon : ArrowDownIcon}
+            alt="Arrow Icon"
+            className="h-4 w-4 ml-2"
+          />
+        </div>
+      ),
+    },
     { label: "Name", value: user.name },
     { label: "Username", value: user.username },
     { label: "Company", value: user.company.name },
