@@ -1,15 +1,26 @@
-import React, { createContext, useState, ReactNode, ReactElement } from "react";
+import React, {
+  createContext,
+  useState,
+  ReactNode,
+  ReactElement,
+  useEffect,
+} from "react";
 
 import { User } from "../types/types";
+import { fetchUsers } from "../api/usersApi";
 
 interface UsersContextType {
   users: User[];
   setUsers: React.Dispatch<React.SetStateAction<User[]>>;
 }
 
-export const UsersContext = createContext<UsersContextType | undefined>(
-  undefined
-);
+const defaultContextValue: UsersContextType = {
+  users: [],
+  setUsers: () => {},
+};
+
+export const UsersContext =
+  createContext<UsersContextType>(defaultContextValue);
 
 interface UsersProviderProps {
   children: ReactNode;
@@ -19,6 +30,15 @@ export const UsersProvider = ({
   children,
 }: UsersProviderProps): ReactElement => {
   const [users, setUsers] = useState<User[]>([]);
+
+  useEffect(() => {
+    const fetchedUsers = async () => {
+      const data = await fetchUsers();
+      setUsers(data);
+    };
+    fetchedUsers();
+  }, []);
+
 
   const value = {
     users,
