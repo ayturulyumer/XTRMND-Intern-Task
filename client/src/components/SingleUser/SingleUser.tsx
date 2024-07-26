@@ -12,55 +12,53 @@ export default function SingleUser() {
     setIsOpen(!isOpen);
   };
 
+  const userMainDetails = [
+    { label: "ID", value: "1" },
+    { label: "Name", value: "John Doe" },
+    { label: "Username", value: "johny1" },
+    { label: "Company", value: "Company" },
+  ];
+
+  const userDetails = [
+    { icon: PhoneIcon, label: "Phone", value: "092382378" },
+    { icon: CityIcon, label: "City", value: "Sofia" },
+    { icon: WebsiteIcon, label: "Website", value: "johndoe.com" },
+    { icon: EmailIcon, label: "Email", value: "johndoe@gmail.com" },
+  ];
+
   return (
     <>
       <tr onClick={toggleAccordion} className="cursor-pointer">
-        <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-          <p className="whitespace-no-wrap">1</p>
-        </td>
-        <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-          <div className="flex items-center">
-            <p className="whitespace-no-wrap">John Doe</p>
-          </div>
-        </td>
-        <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-          <p className="whitespace-no-wrap">johny1</p>
-        </td>
-        <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-          <p className="whitespace-no-wrap">Company</p>
-        </td>
+        {userMainDetails.map((detail, index) => (
+          <td
+            key={index}
+            className="border-b border-gray-200 bg-white px-5 py-5 text-sm"
+          >
+            <div className="flex items-center">
+              <p className="whitespace-no-wrap">{detail.value}</p>
+            </div>
+          </td>
+        ))}
       </tr>
       {isOpen && (
         <tr className="mx-auto">
           <td
             colSpan={4}
-            className="border-b border-gray-200 bg-blue-100 px-5 py-5 text-sm"
+            className="border-b border-gray-200 bg-gray-200 px-5 py-5 text-sm"
           >
-            <div className="grid grid-cols-2 gap-8 ">
-              <div className="flex items-center">
-                <img src={PhoneIcon} alt="Phone" className="h-5 w-5 mr-2" />
-                <p>
-                  <strong>Phone:</strong> 092382378
-                </p>
-              </div>
-              <div className="flex items-center">
-                <img src={CityIcon} alt="Phone" className="h-5 w-5 mr-2" />
-                <p>
-                  <strong>City:</strong> Sofia
-                </p>
-              </div>
-              <div className="flex items-center">
-                <img src={WebsiteIcon} alt="Website" className="h-5 w-5 mr-2" />
-                <p>
-                  <strong>Website:</strong> johndoe.com
-                </p>
-              </div>
-              <div className="flex items-center">
-                <img src={EmailIcon} alt="Email" className="h-5 w-5 mr-2" />
-                <p>
-                  <strong>Email:</strong> johndoe@.gmail.com
-                </p>
-              </div>
+            <div className="grid grid-cols-2 gap-8">
+              {userDetails.map((detail, i) => (
+                <div key={i} className="flex items-center">
+                  <img
+                    src={detail.icon}
+                    alt={detail.label}
+                    className="h-5 w-5 mr-2"
+                  />
+                  <p>
+                    <strong>{detail.label}:</strong> {detail.value}
+                  </p>
+                </div>
+              ))}
             </div>
           </td>
         </tr>
