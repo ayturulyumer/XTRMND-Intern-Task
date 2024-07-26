@@ -1,5 +1,8 @@
 import SingleUser from "../SingleUser/SingleUser";
+
 export default function UserList() {
+  const headers = ["ID", "Name", "Username", "Company"];
+
   return (
     <div className="mx-auto max-w-screen-lg px-4 py-8 sm:px-8">
       <div className="flex items-center text-lg justify-center pb-6">
@@ -12,10 +15,11 @@ export default function UserList() {
           <table className="w-full">
             <thead>
               <tr className="bg-gray-800 text-left text-xs font-semibold uppercase tracking-widest text-white">
-                <th className="px-5 py-3">ID</th>
-                <th className="px-5 py-3">Name</th>
-                <th className="px-5 py-3">Username</th>
-                <th className="px-5 py-3">Company</th>
+                {headers.map((header, i) => (
+                  <th key={i} className="px-5 py-3">
+                    {header}
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody className="text-gray-500">
