@@ -1,4 +1,4 @@
-import { useContext,useState } from "react";
+import { useContext, useState } from "react";
 import UsersContext from "../../context/usersContext";
 
 import { User } from "../../types/types";
@@ -13,7 +13,6 @@ export default function UserList() {
   const toggleAccordion = (id: number) => {
     setOpenUserId(openUserId === id ? null : id);
   };
-
 
   const headers = ["ID", "Name", "Username", "Company"];
 
@@ -37,7 +36,7 @@ export default function UserList() {
               </tr>
             </thead>
             <tbody className="text-gray-500">
-            {users.map((user: User, i: number) => (
+              {users.map((user: User, i: number) => (
                 <SingleUser
                   key={i}
                   user={user}

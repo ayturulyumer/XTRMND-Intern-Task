@@ -22,14 +22,14 @@ export default function SingleUser({
     {
       label: "ID",
       value: (
-        <div className="flex items-center">
+        <span className="flex items-center">
           {user.id}
           <img
             src={isOpen ? ArrowUpIcon : ArrowDownIcon}
             alt="Arrow Icon"
             className="h-4 w-4 ml-2"
           />
-        </div>
+        </span>
       ),
     },
     { label: "Name", value: user.name },
@@ -50,11 +50,14 @@ export default function SingleUser({
 
   return (
     <>
-      <tr onClick={toggleAccordion} className="cursor-pointer">
+      <tr
+        onClick={toggleAccordion}
+        className="cursor-pointer hover:bg-lime-100"
+      >
         {userMainDetails.map((detail, index) => (
           <td
             key={index}
-            className="border-b border-gray-200 bg-white px-5 py-5 text-sm"
+            className="border-b border-gray-200 px-5 py-5 text-sm"
           >
             <div className="flex items-center">
               <p className="whitespace-no-wrap">{detail.value}</p>
@@ -66,7 +69,7 @@ export default function SingleUser({
         <tr className="mx-auto">
           <td
             colSpan={4}
-            className="border-b border-gray-200 bg-gray-200 px-5 py-5 text-sm"
+            className="border-b border-gray-200 bg-lime-100 px-5 py-5 text-sm"
           >
             <div className="grid grid-cols-2 gap-8">
               {userDetails.map((detail, i) => (
