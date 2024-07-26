@@ -1,29 +1,41 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 import PhoneIcon from "../../assets/phone.svg";
 import WebsiteIcon from "../../assets/website.svg";
 import CityIcon from "../../assets/city.svg";
 import EmailIcon from "../../assets/email.svg";
 
-export default function SingleUser() {
+import { User } from "../../types/types";
+
+interface SingleUserProps {
+  user: User;
+}
+
+export default function SingleUser({ user }: SingleUserProps) {
   const [isOpen, setIsOpen] = useState(false);
+
+  console.log(user);
 
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
   };
 
   const userMainDetails = [
-    { label: "ID", value: "1" },
-    { label: "Name", value: "John Doe" },
-    { label: "Username", value: "johny1" },
-    { label: "Company", value: "Company" },
+    { label: "ID", value: user.id },
+    { label: "Name", value: user.name },
+    { label: "Username", value: user.username },
+    { label: "Company", value: user.company.name },
   ];
 
   const userDetails = [
-    { icon: PhoneIcon, label: "Phone", value: "092382378" },
-    { icon: CityIcon, label: "City", value: "Sofia" },
-    { icon: WebsiteIcon, label: "Website", value: "johndoe.com" },
-    { icon: EmailIcon, label: "Email", value: "johndoe@gmail.com" },
+    { icon: PhoneIcon, label: "Phone", value: user.phone },
+    {
+      icon: CityIcon,
+      label: "City",
+      value: `${user.address.city},${user.address.street},${user.address.suite}`,
+    },
+    { icon: WebsiteIcon, label: "Website", value: user.website },
+    { icon: EmailIcon, label: "Email", value: user.email },
   ];
 
   return (

@@ -1,6 +1,13 @@
+import { useContext } from "react";
+import UsersContext from "../../context/usersContext";
+
+import { User } from "../../types/types";
+
 import SingleUser from "../SingleUser/SingleUser";
 
 export default function UserList() {
+  const { users } = useContext(UsersContext);
+
   const headers = ["ID", "Name", "Username", "Company"];
 
   return (
@@ -23,7 +30,9 @@ export default function UserList() {
               </tr>
             </thead>
             <tbody className="text-gray-500">
-              <SingleUser />
+            {users.map((user: User, i: number) => (
+                <SingleUser key={i} user={user} />
+              ))}
             </tbody>
           </table>
         </div>
