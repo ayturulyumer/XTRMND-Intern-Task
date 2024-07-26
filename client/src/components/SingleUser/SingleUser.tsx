@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import PhoneIcon from "../../assets/phone.svg";
 import WebsiteIcon from "../../assets/website.svg";
 import CityIcon from "../../assets/city.svg";
@@ -11,15 +9,15 @@ import { User } from "../../types/types";
 
 interface SingleUserProps {
   user: User;
+  isOpen: boolean;
+  toggleAccordion: () => void;
 }
 
-export default function SingleUser({ user }: SingleUserProps) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleAccordion = () => {
-    setIsOpen(!isOpen);
-  };
-
+export default function SingleUser({
+  user,
+  isOpen,
+  toggleAccordion,
+}: SingleUserProps) {
   const userMainDetails = [
     {
       label: "ID",
