@@ -13,12 +13,14 @@ interface UsersContextType {
   users: User[];
   setUsers: React.Dispatch<React.SetStateAction<User[]>>;
   loading: boolean;
+  error: string | null;
 }
 
 const defaultContextValue: UsersContextType = {
   users: [],
   setUsers: () => {},
   loading: false,
+  error: null,
 };
 
 export const UsersContext =
@@ -33,13 +35,20 @@ export const UsersProvider = ({
 }: UsersProviderProps): ReactElement => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchedUsers = async () => {
       setLoading(true);
-      const data = await fetchUsers();
-      setUsers(data);
-      setLoading(false);
+      setError(null);
+      try {
+        const data = await fetchUsers();
+        setUsers(data);
+      } catch (error: any) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchedUsers();
   }, []);
@@ -48,6 +57,7 @@ export const UsersProvider = ({
     users,
     setUsers,
     loading,
+    error
   };
 
   return (

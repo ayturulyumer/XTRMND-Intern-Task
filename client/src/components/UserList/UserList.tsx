@@ -7,8 +7,7 @@ import SingleUser from "../SingleUser/SingleUser";
 import Spinner from "../Spinner/Spinner";
 
 export default function UserList() {
-  const { users, loading } = useContext(UsersContext);
-  console.log(loading);
+  const { users, loading, error } = useContext(UsersContext);
 
   const [openUserId, setOpenUserId] = useState<number | null>(null);
 
@@ -43,6 +42,15 @@ export default function UserList() {
                   <td colSpan={headers.length} className="text-center py-4">
                     <Spinner />
                     <p className="mt-4 text-gray-900 text-sm">Please wait...</p>
+                  </td>
+                </tr>
+              ) : error ? (
+                <tr>
+                  <td
+                    colSpan={headers.length}
+                    className="text-center font-bold py-5 text-red-500"
+                  >
+                    {error}
                   </td>
                 </tr>
               ) : (
