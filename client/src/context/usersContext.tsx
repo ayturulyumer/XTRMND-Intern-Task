@@ -12,11 +12,13 @@ import { fetchUsers } from "../api/usersApi";
 interface UsersContextType {
   users: User[];
   setUsers: React.Dispatch<React.SetStateAction<User[]>>;
+  loading: boolean;
 }
 
 const defaultContextValue: UsersContextType = {
   users: [],
   setUsers: () => {},
+  loading: false,
 };
 
 export const UsersContext =
@@ -30,19 +32,22 @@ export const UsersProvider = ({
   children,
 }: UsersProviderProps): ReactElement => {
   const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchedUsers = async () => {
+      setLoading(true);
       const data = await fetchUsers();
       setUsers(data);
+      setLoading(false);
     };
     fetchedUsers();
   }, []);
 
-
   const value = {
     users,
     setUsers,
+    loading,
   };
 
   return (

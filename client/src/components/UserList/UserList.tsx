@@ -4,9 +4,11 @@ import UsersContext from "../../context/usersContext";
 import { User } from "../../types/types";
 
 import SingleUser from "../SingleUser/SingleUser";
+import Spinner from "../Spinner/Spinner";
 
 export default function UserList() {
-  const { users } = useContext(UsersContext);
+  const { users, loading } = useContext(UsersContext);
+  console.log(loading);
 
   const [openUserId, setOpenUserId] = useState<number | null>(null);
 
@@ -36,14 +38,23 @@ export default function UserList() {
               </tr>
             </thead>
             <tbody className="text-gray-500">
-              {users.map((user: User, i: number) => (
-                <SingleUser
-                  key={i}
-                  user={user}
-                  isOpen={openUserId === user.id}
-                  toggleAccordion={() => toggleAccordion(user.id)}
-                />
-              ))}
+              {loading ? (
+                <tr>
+                  <td colSpan={headers.length} className="text-center py-4">
+                    <Spinner />
+                    <p className="mt-4 text-gray-900 text-sm">Please wait...</p>
+                  </td>
+                </tr>
+              ) : (
+                users.map((user: User, i: number) => (
+                  <SingleUser
+                    key={i}
+                    user={user}
+                    isOpen={openUserId === user.id}
+                    toggleAccordion={() => toggleAccordion(user.id)}
+                  />
+                ))
+              )}
             </tbody>
           </table>
         </div>
