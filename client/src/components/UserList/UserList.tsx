@@ -1,15 +1,14 @@
 import { useContext, useState } from "react";
 import UsersContext from "../../context/usersContext";
-
 import { User } from "../../types/types";
-
 import SingleUser from "../SingleUser/SingleUser";
 import Spinner from "../Spinner/Spinner";
+import Search from "../Search/Search";
 
 export default function UserList() {
   const { users, loading, error } = useContext(UsersContext);
-
   const [openUserId, setOpenUserId] = useState<number | null>(null);
+  const [searchInput, setSearchInput] = useState<string>("");
 
   const toggleAccordion = (id: number) => {
     setOpenUserId(openUserId === id ? null : id);
@@ -17,12 +16,19 @@ export default function UserList() {
 
   const headers = ["ID", "Name", "Username", "Company"];
 
+  const filteredUsers = users.filter((user: User) =>
+    user.name.toLowerCase().includes(searchInput.toLowerCase())
+  );
+
   return (
-    <div className="mx-auto max-w-screen-lg px-4 py-8 sm:px-8">
+    <section className="mx-auto max-w-screen-lg px-4 py-8 sm:px-8">
       <div className="flex items-center text-lg justify-center pb-6">
         <div>
           <h2 className="font-semibold text-gray-700">Users</h2>
         </div>
+      </div>
+      <div className="flex justify-center mb-2">
+        <Search onSearch={(input: string) => setSearchInput(input)} />
       </div>
       <div className="overflow-y-hidden rounded-lg border">
         <div className="overflow-x-auto">
@@ -53,8 +59,17 @@ export default function UserList() {
                     {error}
                   </td>
                 </tr>
+              ) : filteredUsers.length === 0 ? (
+                <tr>
+                  <td
+                    colSpan={headers.length}
+                    className="text-center font-bold py-5 text-gray-700"
+                  >
+                    No users found
+                  </td>
+                </tr>
               ) : (
-                users.map((user: User, i: number) => (
+                filteredUsers.map((user: User, i: number) => (
                   <SingleUser
                     key={i}
                     user={user}
@@ -67,6 +82,6 @@ export default function UserList() {
           </table>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
