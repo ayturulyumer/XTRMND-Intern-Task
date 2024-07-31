@@ -1,4 +1,8 @@
 # XTRMND-Intern-Task
+
+## Live Application
+
+The project is live at [https://xtrmnd-intern-task.vercel.app/](https://xtrmnd-intern-task.vercel.app/).
  
 
 ## Overview
