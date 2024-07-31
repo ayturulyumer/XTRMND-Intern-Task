@@ -17,6 +17,7 @@ export default function Search({ onSearch }: searchProps) {
         name="search"
         placeholder="Search by name"
         onChange={handleChange}
+        role="textbox"
       />
       <button type="submit" className="absolute right-0 top-0 mt-5 mr-4">
         <img src={searchIcon} alt="search" className="h-4 w-4" />
