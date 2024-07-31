@@ -3,8 +3,10 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import SingleUser from "./SingleUser";
 import { User } from "../../types/types";
-
-
+import PhoneIcon from "../../assets/phone.svg";
+import WebsiteIcon from "../../assets/website.svg";
+import CityIcon from "../../assets/city.svg";
+import EmailIcon from "../../assets/email.svg";
 
 const mockUser: User = {
   id: 1,
@@ -31,6 +33,26 @@ const mockUser: User = {
 };
 
 describe("SingleUser", () => {
+  it("renders icons with correct src attributes", () => {
+    render(
+      <table>
+        <tbody>
+          <SingleUser
+            user={mockUser}
+            isOpen={true}
+            toggleAccordion={() => {}}
+          />
+        </tbody>
+      </table>
+    );
+
+    // Check if the icons have the correct src attribute
+    expect(screen.getByAltText("Phone")).toHaveAttribute("src", PhoneIcon);
+    expect(screen.getByAltText("City")).toHaveAttribute("src", CityIcon);
+    expect(screen.getByAltText("Website")).toHaveAttribute("src", WebsiteIcon);
+    expect(screen.getByAltText("Email")).toHaveAttribute("src", EmailIcon);
+  });
+
   it("renders main user details", () => {
     render(
       <SingleUser user={mockUser} isOpen={false} toggleAccordion={() => {}} />
