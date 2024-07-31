@@ -52,13 +52,16 @@ const TestComponent = () => {
     </div>
   );
 };
+
 describe("UsersContext", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
   it("sets users in context when users are fetched", async () => {
-    (fetchUsers as vi.Mock).mockResolvedValue(mockUsers);
+    (fetchUsers as ReturnType<typeof vi.fn>).mockImplementation(() =>
+      Promise.resolve(mockUsers)
+    );
 
     render(
       <UsersProvider>
@@ -72,7 +75,9 @@ describe("UsersContext", () => {
   });
 
   it("displays a loading state while users are being fetched", async () => {
-    (fetchUsers as vi.Mock).mockImplementation(() => new Promise(() => {}));
+    (fetchUsers as ReturnType<typeof vi.fn>).mockImplementation(
+      () => new Promise(() => {})
+    );
 
     render(
       <UsersProvider>
@@ -86,7 +91,9 @@ describe("UsersContext", () => {
   it("handles errors and sets error state in context", async () => {
     const errorMessage = "Failed to fetch users";
 
-    (fetchUsers as vi.Mock).mockRejectedValue(new Error(errorMessage));
+    (fetchUsers as ReturnType<typeof vi.fn>).mockImplementation(() =>
+      Promise.reject(new Error(errorMessage))
+    );
 
     render(
       <UsersProvider>
